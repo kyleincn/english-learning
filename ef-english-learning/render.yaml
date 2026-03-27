@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: ef-english-learning
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run server
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: CODEBUDDY_API_KEY
+        sync: false  # 需要在 Render Dashboard 中手动设置
+      - key: CODEBUDDY_BASE_URL
+        value: https://api.codebuddy.cn
+      - key: DATABASE_PATH
+        value: /tmp/chat.db  # Render 的免费实例有只读文件系统，使用 /tmp
+    disk:
+      name: data
+      mountPath: /tmp
+      sizeGB: 1
